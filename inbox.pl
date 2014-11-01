@@ -78,8 +78,8 @@ sub start {
 		}
 	}
 	# fill in some parameters
-	$template->param(HOME => $ENV{HOME});
-    $template->param(PATH => $ENV{PATH});
+	$template->param(HOME => "bb");
+    $template->param(PATH => "aa");
 	# send the obligatory Content-Type and print the template output
     print "Content-Type: text/html\n\n", $template->output;
 }

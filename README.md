@@ -21,7 +21,7 @@ Options ExecCGI
 7. Zrestartować serwer z uprawnieniami sudo (`sudo service apache2 restart`)
 8. Doinstalować potrzebne moduły perla: 
 `
-perl -MCPAN -e shell
+sudo perl -MCPAN -e shell
 install HTML::Template
 install Path::Class
 `
