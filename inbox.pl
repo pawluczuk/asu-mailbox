@@ -2,9 +2,13 @@
 use strict;
 use warnings;
 
+use HTML::Template;
 use Path::Class;
 use autodie; # die if problem reading or writing a file
 
+# open the html template
+my $template = HTML::Template->new(filename => 'inbox.tmpl');
+# open mailbox
 my $file = file("../mbox");
 
 # Read in the entire contents of a file
@@ -14,76 +18,70 @@ my $content = $file->slurp();
 my $file_handle = $file->openr();
 my $regexBeginning = qr/^From[^:].*/;
 #my $regexMailAddres = qr/^From:.*[\s<]([a-zA-Z0-9\-\.]+@[a-zA-Z0-9\-\.]+[A-Za-z]+)[\s\n>].*/;
-my $regexMailAddres = qr/^From:.*[\s<](.*)[\s>].*/;
+my $regexMailAddres = qr/^From:.*[\s<]+(.*@.*)[\s>].*/;
 my $regexSubject = qr/^Subject:\s(.*)/;
 my $regexDate = qr/^Date:\s(.*)/;
-my $currentMail = 0;
-my @mailContainer;
-my $currentState = 0;
-my %parserStates = (
-	0 => 'FROM',
-	1 => 'DATE',
-	2 => 'SUBJECT'
-);
-
 
 sub generateHeading {
 	my @mailTable = @_;
-}
-
-sub getOneMail {
-	my $mail = $_[0];
-	my @onemail;
-	foreach my $line (split /\n/ ,$mail) {
-	    if ($line =~ $regexMailAddres)
-		{	#print "$line\n";
-			$onemail[0] = $1;
-		}
-		if ($line =~ $regexSubject)
-		{
-			$onemail[1] = $1;
-		}
-		if ($line =~ $regexDate)
-		{
-			$onemail[2] = $1;
-		}
-	}
-	#print "$onemail[0]\n";
-	if ($onemail[0] && $onemail[1] && $onemail[2])
+	if (scalar(@mailTable) != 5)
 	{
-		generateHeading(@onemail);
+		return;
 	}
+	my $mailAddr = $mailTable[0];
+	my $subject = $mailTable[1];
+	my $date = $mailTable[2];
+	my $startLine = $mailTable[3];
+	my $endLine = $mailTable[4];
+	#print "<tr>\n\t<td>$mailAddr</td>\n\t<td><a href='/$startLine:$endLine'>$subject</a></td>\n\t<td>$date</td>\n<tr>\n";
 }
 
 sub start {
 	my $mailBeginning = 0;
-	my $onemail = "";
-	my $startline = 0;
-	my $endline = 0;
+	my @onemail = ();
+	my $counter = 0;
 	# Read in line at a time
 	while( my $line = $file_handle->getline() ) {
+		# we're on the first line of the next mail
 		if ($line =~ $regexBeginning && $mailBeginning == 1)
 		{
-			if ($onemail)
+			if (scalar(@onemail) == 4)
 			{
-				$endline = $.;
-				getOneMail($onemail);
+				$onemail[4] = $.;
+				generateHeading(@onemail);
+				$counter++;
 			}
-			$onemail = "";
-			$startline = $.;
-			$onemail .= $line;
+			@onemail = ();
+			$mailBeginning = 0;
 		}
+		# we're iterating through new mail
 		if ($line =~ $regexBeginning && $mailBeginning == 0) 
 		{
-			$startline = $.;
-			$onemail .= $line;
+			$onemail[3] = $.;
 			$mailBeginning = 1;
 		}
+		# we're in the middle of the mail
 		if ($line !~ $regexBeginning && $mailBeginning == 1)
 		{
-			$onemail .= $line;
+			if ($line =~ $regexMailAddres)
+			{	
+				$onemail[0] = $1;
+			}
+			if ($line =~ $regexSubject)
+			{
+				$onemail[1] = $1;
+			}
+			if ($line =~ $regexDate)
+			{
+				$onemail[2] = $1;
+			}
 		}
 	}
+	# fill in some parameters
+	$template->param(HOME => $ENV{HOME});
+    $template->param(PATH => $ENV{PATH});
+	# send the obligatory Content-Type and print the template output
+    print "Content-Type: text/html\n\n", $template->output;
 }
 
 start();
