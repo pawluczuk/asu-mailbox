@@ -1,15 +1,16 @@
-#!usr/bin/perl
+#!/usr/bin/perl
 use strict;
 use warnings;
-
+use CGI;
 use HTML::Template;
 use Path::Class;
 use autodie; # die if problem reading or writing a file
 
+print "Content-Type: text/html\n\n";
 # open the html template
 my $template = HTML::Template->new(filename => 'inbox.tmpl');
 # open mailbox
-my $file = file("../mbox");
+my $file = file("/home/monika/mbox");
 
 # Read in the entire contents of a file
 my $content = $file->slurp();
@@ -22,6 +23,7 @@ my $regexMailAddres = qr/^From:.*[\s<]+(.*@.*)[\s>].*/;
 my $regexSubject = qr/^Subject:\s(.*)/;
 my $regexDate = qr/^Date:\s(.*)/;
 
+my $tableOutput = "";
 sub generateHeading {
 	my @mailTable = @_;
 	if (scalar(@mailTable) != 5)
@@ -33,7 +35,9 @@ sub generateHeading {
 	my $date = $mailTable[2];
 	my $startLine = $mailTable[3];
 	my $endLine = $mailTable[4];
-	#print "<tr>\n\t<td>$mailAddr</td>\n\t<td><a href='/$startLine:$endLine'>$subject</a></td>\n\t<td>$date</td>\n<tr>\n";
+	$tableOutput .= "<tr><td>$mailAddr</td>";
+	$tableOutput .= "<td><a href='/$startLine:$endLine'>$subject</a></td>";
+	$tableOutput .= "<td>$date</td></tr>";
 }
 
 sub start {
@@ -79,9 +83,11 @@ sub start {
 	}
 	# fill in some parameters
 	$template->param(HOME => "bb");
-    $template->param(PATH => "aa");
+    	$template->param(PATH => "aa");
+	$template->param(TABLE => $tableOutput);
 	# send the obligatory Content-Type and print the template output
-    print "Content-Type: text/html\n\n", $template->output;
+    	#print "Content-type: text/html\n\n", $template->output;
+	print $template->output;
 }
 
 start();
