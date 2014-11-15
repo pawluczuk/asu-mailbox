@@ -12,7 +12,7 @@ my $template = HTML::Template->new(filename => 'inbox.tmpl');
 # open mailbox
 my $file = file("/home/monika/mbox");
 # Read in the entire contents of a file
-my $content = $file->slurp(iomode => '<:encoding(UTF-8)');
+my $content = $file->slurp();
 
 # openr() returns an IO::File object to read from
 my $file_handle = $file->openr();
@@ -35,7 +35,8 @@ sub generateHeading {
 	my $startLine = $mailTable[3];
 	my $endLine = $mailTable[4];
 	$tableOutput .= "<tr><td>$mailAddr</td>";
-	$tableOutput .= "<td>$subject</td>";
+	$tableOutput .= "<td><a href='/cgi-bin/mail.pl?start=$startLine&end=$endLine'>$subject</a></td>";
+	$tableOutput .= "<td><a href='/cgi-bin/delete.pl?start=$startLine&end=$endLine'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></td>";
 	$tableOutput .= "<td>$date</td></tr>\n";
 }
 
