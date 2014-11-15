@@ -1,16 +1,20 @@
 <html>
     <head>
 	<title>Inbox</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     </head>
     <body>
 	<div class="container">
-    	<div>
-	    	My Home Directory is <TMPL_VAR NAME=HOME>
-	    	My Path is set to <TMPL_VAR NAME=PATH>
-	<div>
-	<div class="panel panel-default">
-		<div class="panel-heading">Inbox</div>
+		<div class="page-header">
+			<h1>Mailbox</h1>
+			<p class="lead">Check your mail</p>
+		</div> 
+	<div class="row">
+		<div class="col-md-2">
+			Menu
+			<TMPL_VAR NAME=HOME>
+			<TMPL_VAR NAME=PATH>
+		</div>
+		<div class="col-md-10">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -26,4 +30,5 @@
 	</div>
 	</div>
     </body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 </html>

@@ -6,20 +6,20 @@ use HTML::Template;
 use Path::Class;
 use autodie; # die if problem reading or writing a file
 
-print "Content-Type: text/html\n\n";
+#print "Content-Type: text/html\n\n";
 # open the html template
 my $template = HTML::Template->new(filename => 'inbox.tmpl');
 # open mailbox
 my $file = file("/home/monika/mbox");
 
 # Read in the entire contents of a file
-my $content = $file->slurp();
+my $content = $file->slurp(iomode => '<:encoding(UTF-8)');
 
 # openr() returns an IO::File object to read from
 my $file_handle = $file->openr();
 my $regexBeginning = qr/^From[^:].*/;
 #my $regexMailAddres = qr/^From:.*[\s<]([a-zA-Z0-9\-\.]+@[a-zA-Z0-9\-\.]+[A-Za-z]+)[\s\n>].*/;
-my $regexMailAddres = qr/^From:.*[\s<]+(.*@.*)[\s>].*/;
+my $regexMailAddres = qr/^From:.*[\s<]+(.*)[\s>].*/;
 my $regexSubject = qr/^Subject:\s(.*)/;
 my $regexDate = qr/^Date:\s(.*)/;
 
@@ -36,7 +36,7 @@ sub generateHeading {
 	my $startLine = $mailTable[3];
 	my $endLine = $mailTable[4];
 	$tableOutput .= "<tr><td>$mailAddr</td>";
-	$tableOutput .= "<td><a href='/$startLine:$endLine'>$subject</a></td>";
+	$tableOutput .= "<td>$subject</td>";
 	$tableOutput .= "<td>$date</td></tr>";
 }
 
@@ -86,8 +86,8 @@ sub start {
     	$template->param(PATH => "aa");
 	$template->param(TABLE => $tableOutput);
 	# send the obligatory Content-Type and print the template output
-    	#print "Content-type: text/html\n\n", $template->output;
-	print $template->output;
+    	print "Content-type: text/html\n\n", $template->output;
+	#print $template->output;
 }
 
 start();
