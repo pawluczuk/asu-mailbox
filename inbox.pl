@@ -11,7 +11,6 @@ use autodie; # die if problem reading or writing a file
 my $template = HTML::Template->new(filename => 'inbox.tmpl');
 # open mailbox
 my $file = file("/home/monika/mbox");
-
 # Read in the entire contents of a file
 my $content = $file->slurp(iomode => '<:encoding(UTF-8)');
 
