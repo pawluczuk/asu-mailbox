@@ -37,7 +37,7 @@ sub generateHeading {
 	my $endLine = $mailTable[4];
 	$tableOutput .= "<tr><td>$mailAddr</td>";
 	$tableOutput .= "<td>$subject</td>";
-	$tableOutput .= "<td>$date</td></tr>";
+	$tableOutput .= "<td>$date</td></tr>\n";
 }
 
 sub start {
