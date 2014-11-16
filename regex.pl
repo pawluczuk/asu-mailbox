@@ -2,16 +2,14 @@
 use strict;
 use warnings;
 use CGI;
-use Encode;
 use HTML::Template;
 use Path::Class;
 use autodie; # die if problem reading or writing a file
+use Encode;
 
-#print "Content-Type: text/html\n\n";
 # open the html template
-my $template = HTML::Template->new(filename => 'inbox.tmpl');
 # open mailbox
-my $file = file("/home/monika/mbox");
+my $file = file("../mbox");
 # Read in the entire contents of a file
 my $content = $file->slurp();
 
@@ -51,15 +49,19 @@ sub generateHeading {
 	{
 		return;
 	}
-	my $mailAddr = getSender($mailTable[0]); 
- 	my $subject = getSubject($mailTable[1]);
+	my $subject = $mailTable[1];
 	my $date = $mailTable[2];
 	my $startLine = $mailTable[3];
 	my $endLine = $mailTable[4];
-	$tableOutput .= "<tr><td>$mailAddr</td>";
-	$tableOutput .= "<td><a href='/cgi-bin/mail.pl?start=$startLine&end=$endLine'>$subject</a></td>";
-	$tableOutput .= "<td><a href='/cgi-bin/delete.pl?start=$startLine&end=$endLine'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></td>";
-	$tableOutput .= "<td>$date</td></tr>\n";
+
+ 	my $parsedMailAddr = getSender($mailTable[0]); 
+ 	my $parsedSubject = getSubject($mailTable[1]);
+
+ 	#print $parsedSubject, "\n";
+
+ 	$tableOutput .= "$parsedMailAddr";
+	$tableOutput .= "$parsedSubject";
+	
 }
 
 sub start {
@@ -134,11 +136,7 @@ sub start {
 			}
 		}
 	}
-	# fill in some parameters
-	$template->param(TABLE => $tableOutput);
-	# send the obligatory Content-Type and print the template output
-    print "Content-type: text/html\n\n", $template->output;
-	#print $template->output;
+	#print $tableOutput;
 }
 
 start();
