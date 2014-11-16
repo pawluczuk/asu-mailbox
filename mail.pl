@@ -72,7 +72,7 @@ sub start {
 				$from .= $1;
 			}
 
-			if ($line !~ $regexHeaderPart && $mailAddress == 1)
+			if ($line !~ $regexHeaderPart && $readingMailAddress == 1)
 			{
 				$from .= $line;
 			}
