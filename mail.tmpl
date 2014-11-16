@@ -25,44 +25,48 @@
 							<h3 class="panel-title">Mail</h3>
 					  	</div>
 					  	<div class="panel-body">
-					    	
-					  	</div>
-					  	<ul class="list-group">
-						    <li class="list-group-item">
-						    	<strong>From: </strong>
-						    	<TMPL_VAR NAME=FROM>
-						    </li>
-						    <li class="list-group-item">
-						    	<strong>Date: </strong>
-						    	<TMPL_VAR NAME=DATE>
-						    </li>
-						    <li class="list-group-item">
-						    	<strong>Subject: </strong>
-						    	<TMPL_VAR NAME=SUBJECT>
-						    </li>
-						    <li class="list-group-item">
-						    	<TMPL_VAR NAME=MAIL>
-						    </li>
-						</ul>
+						  	<ul class="list-group">
+							    <li class="list-group-item">
+							    	<strong>From: </strong>
+							    	<TMPL_VAR NAME=FROM>
+							    </li>
+							    <li class="list-group-item">
+							    	<strong>Date: </strong>
+							    	<TMPL_VAR NAME=DATE>
+							    </li>
+							    <li class="list-group-item">
+							    	<strong>Subject: </strong>
+							    	<TMPL_VAR NAME=SUBJECT>
+							    </li>
+							    <li class="list-group-item">
+							    	<TMPL_VAR NAME=MAIL>
+							    </li>
+							</ul>
+						</div>
+						<div class="panel-body">
+							<h4>Reply: </h4>
+						  	<form action="sendnewmail.pl" method="POST" role="form">
+							  	<ul class="list-group">
+								    <li class="list-group-item">
+								    	<label for="recipient">Recipient: </label>
+							    		<input type="text" class="form-control" name="recipient" value="<TMPL_VAR=FROM>" disabled="TRUE">
+								    </li>
+								    <li class="list-group-item">
+								    	<label for="subject">Subject: </label>
+							    		<input type="text" class="form-control" name="subject" value="<TMPL_VAR=SUBJECT>">
+								    </li>
+								    <li class="list-group-item">
+								    	<label for="body">Body: </label>
+							    		<textarea class="form-control" rows="5" name="body"></textarea>
+								    </li>
+								    <li>
+								    	<input type="submit" value="Send" class="btn btn-default">
+										<input type="reset" value="Clear Form" class="btn btn-default">
+								    </li>
+								</ul>
+							</form>
+						</div>
 					</div>
-					<h4>Reply :</h4>
-					<form action="send.pl" method="POST" role="form">
-						<div class="form-group">
-						    <label for="exampleInputEmail1">Email address</label>
-						    <input type="text" class="form-control" name="email" placeholder="Enter email">
-						</div>
-						<div class="form-group">
-						    <label for="exampleInputEmail1">Your name</label>
-						    <input type="email" class="form-control" name="name" placeholder="Enter email">
-						</div>
-						<div class="form-group">
-						    <label for="exampleInputEmail1">Mail</label>
-						    <textarea class="form-control" rows="5" name="favorite_color"></textarea>
-						</div>
-					   	<p>Age: <input type="text" name="age"></p>
-					<input type="submit" value="Send" class="btn btn-default">
-					<input type="reset" value="Clear Form" class="btn btn-default">
-					</form>
 				</div>
 			</div>
 		</div>
