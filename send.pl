@@ -63,9 +63,8 @@ close(MAIL);
 # link back to your homepage
 
 print <<EndHTML;
-<h2>Thank You</h2>
-Thank you for writing.  Your mail has been delivered.<p>
-Return to our <a href="index.html">home page</a>.
+<h2>Your mail has been sent</h2>
+Return to inbox <a href="/cgi-bin/inbox.pl">home page</a>.
 </body></html>
 EndHTML
 
