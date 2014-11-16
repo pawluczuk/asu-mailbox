@@ -49,17 +49,17 @@
 							  	<ul class="list-group">
 								    <li class="list-group-item">
 								    	<label for="recipient">Recipient: </label>
-							    		<input type="text" class="form-control" name="recipient" value="<TMPL_VAR=FROM>" disabled="TRUE">
+							    		<input type="text" class="form-control" name="recipient" value="<TMPL_VAR NAME=FROM ESCAPE=HTML>">
 								    </li>
 								    <li class="list-group-item">
 								    	<label for="subject">Subject: </label>
-							    		<input type="text" class="form-control" name="subject" value="<TMPL_VAR=SUBJECT>">
+							    		<input type="text" class="form-control" name="subject" value="<TMPL_VAR NAME=SUBJECT ESCAPE=HTML>">
 								    </li>
 								    <li class="list-group-item">
 								    	<label for="body">Body: </label>
 							    		<textarea class="form-control" rows="5" name="body"></textarea>
 								    </li>
-								    <li>
+								    <li class="list-group-item">
 								    	<input type="submit" value="Send" class="btn btn-default">
 										<input type="reset" value="Clear Form" class="btn btn-default">
 								    </li>

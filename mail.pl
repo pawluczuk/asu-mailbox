@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use CGI;
+use Encode;
 use HTML::Template;
 use Path::Class;
 use autodie; # die if problem reading or writing a file
@@ -77,7 +78,7 @@ sub start {
 				$from .= $line;
 			}
 
-			if ($line !~ $regexHeaderPart && $subject == 1)
+			if ($line !~ $regexHeaderPart && $readingSubject == 1)
 			{
 				$subject .= $line;
 			}

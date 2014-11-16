@@ -2,17 +2,19 @@
 
 print "Content-type:text/html\n\n";
 
-# where is the mail program?
-$mailprog = '/usr/sbin/ssmtp';
-
+# parse the form data.
 read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
 @pairs = split(/&/, $buffer);
 foreach $pair (@pairs) {
-	($name, $value) = split(/=/, $pair);
-	$value =~ tr/+/ /;
-	$value =~ s/%([\w][\w])/pack("C", hex($1))/eg;
-	$FORM{$name} = $value;
+    ($name, $value) = split(/=/, $pair);
+    $value =~ tr/+/ /;  
+    $value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg;
+    $FORM{$name} = $value;
 }
+
+# where is the mail program?
+$mailprog = '/usr/sbin/ssmtp';
+
 # mail details
 $from = 'mpawluc1@mion.elka.pw.edu.pl';
 $recipient = $FORM{'recipient'};
@@ -32,7 +34,6 @@ close(MAIL);
 # the person for filling out the form, and giving them a 
 # link back to your homepage
 
-print "$recipient\t$from\t$subject";
 print <<EndHTML;
 <h2>Your mail has been sent</h2>
 Return to inbox <a href="/cgi-bin/inbox.pl">home page</a>.
