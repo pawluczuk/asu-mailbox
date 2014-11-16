@@ -48,6 +48,7 @@ sub getSubject {
 sub start {
 	my $readingMailAddress = 0;
 	my $readingSubject = 0;
+	my $readingBody = 0;
 	my $mailAddressDefined = 0;
 	my $subjectDefined = 0;
 	my $counter = 1;
@@ -59,7 +60,18 @@ sub start {
 	while( my $line = $file_handle->getline() ) {
 		if ($counter >= $startLine && $counter < $endLine)
 		{
-			$mail .= $line;
+			if ($line eq "\n")
+			{
+				$readingMailAddress = 0;
+				$readingSubject = 0;
+				$readingBody = 1;
+			}
+			
+			if ($readingBody == 1 & $line ne "\n")
+			{
+				$mail .= $line;
+			}
+
 			if ($line =~ $regexHeaderPart)
 			{
 				$readingMailAddress = 0;
