@@ -83,7 +83,7 @@ sub start {
 	}
 	# fill in some parameters
 	$template->param(HOME => "bb");
-    	$template->param(PATH => "aa");
+    $template->param(PATH => "aa");
 	$template->param(TABLE => $tableOutput);
 	# send the obligatory Content-Type and print the template output
     	print "Content-type: text/html\n\n", $template->output;

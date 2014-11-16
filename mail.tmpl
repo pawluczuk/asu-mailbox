@@ -42,8 +42,14 @@
 						</ul>
 					</div>
 					<h4>Reply :</h4>
-					<textarea class="form-control" rows="3"></textarea>
-					<button type="button" class="btn btn-default">Send</button>
+					<form action="send.pl" method="POST">
+					       Your Name: <input type="text" name="name">
+					   Email Address: <input type="text" name="email">
+					             Age: <input type="text" name="age">
+					  Favorite Color: <input type="text" name="favorite_color">
+					<input type="submit" value="Send">
+					<input type="reset" value="Clear Form">
+					</form>
 				</div>
 			</div>
 		</div>
