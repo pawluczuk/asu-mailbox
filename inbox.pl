@@ -56,10 +56,12 @@ sub generateHeading {
 	my $date = $mailTable[2];
 	my $startLine = $mailTable[3];
 	my $endLine = $mailTable[4];
-	$tableOutput .= "<tr><td>$mailAddr</td>";
-	$tableOutput .= "<td><a href='/cgi-bin/mail.pl?start=$startLine&end=$endLine'>$subject</a></td>";
-	$tableOutput .= "<td><a href='/cgi-bin/delete.pl?start=$startLine&end=$endLine'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></td>";
-	$tableOutput .= "<td>$date</td></tr>\n";
+	my $mail = '';
+	$mail .= "<tr><td>$mailAddr</td>";
+	$mail .= "<td><a href='/cgi-bin/mail.pl?start=$startLine&end=$endLine'>$subject</a></td>";
+	$mail .= "<td><a href='/cgi-bin/delete.pl?start=$startLine&end=$endLine'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></td>";
+	$mail .= "<td>$date</td></tr>\n";
+	$tableOutput = $mail . $tableOutput;
 }
 
 sub start {
