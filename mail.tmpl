@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Ubuntu Mailbox</title>
+		<meta charset="utf-8">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+				<h1>Ubuntu mailbox</h1>
+				<p class="lead">Check your mail</p>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<h4>Menu</h4>
+				</div>
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Mail</h3>
+					  	</div>
+					  	<div class="panel-body">
+					    	
+					  	</div>
+					  	<ul class="list-group">
+						    <li class="list-group-item">
+						    	<strong>From: </strong>
+						    	<TMPL_VAR NAME=FROM>
+						    </li>
+						    <li class="list-group-item">
+						    	<strong>Date: </strong>
+						    	<TMPL_VAR NAME=DATE>
+						    </li>
+						    <li class="list-group-item">
+						    	<strong>Subject: </strong>
+						    	<TMPL_VAR NAME=SUBJECT>
+						    </li>
+						    <li class="list-group-item">
+						    	<TMPL_VAR NAME=MAIL>
+						    </li>
+						</ul>
+					</div>
+					<h4>Reply :</h4>
+					<textarea class="form-control" rows="3"></textarea>
+					<button type="button" class="btn btn-default">Send</button>
+				</div>
+			</div>
+		</div>
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	</body>
+</html>
