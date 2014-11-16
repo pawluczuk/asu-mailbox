@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Ubuntu Mailbox</title>
+		<meta charset="utf-8">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+				<h1>Ubuntu mailbox</h1>
+				<p class="lead">Check your mail</p>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<h4>Menu</h4>
+					<ul>
+						<li><a href="/cgi-bin/inbox.pl">Inbox</a></li>
+						<li><a href="/cgi-bin/newmail.html">New mail</a></li>
+					</ul>
+				</div>
+				<div class="col-md-9">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">New mail</h3>
+					  	</div>
+					  	<div class="panel-body">
+					    	
+					  	</div>
+					  	<form action="send.pl" method="POST" role="form">
+						  	<ul class="list-group">
+							    <li class="list-group-item">
+							    	<label for="recipient">Recipient: </label>
+						    		<input type="text" class="form-control" name="recipient" placeholder="Enter email">
+							    </li>
+							    <li class="list-group-item">
+							    	<label for="subject">Subject: </label>
+						    		<input type="text" class="form-control" name="subject" placeholder="Enter subject">
+							    </li>
+							    <li class="list-group-item">
+							    	<label for="body">Message: </label>
+						    		<textarea class="form-control" rows="5" name="body"></textarea>
+							    </li>
+							    <li>
+							    	<input type="submit" value="Send" class="btn btn-default">
+									<input type="reset" value="Clear Form" class="btn btn-default">
+							    </li>
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	</body>
+</html>
