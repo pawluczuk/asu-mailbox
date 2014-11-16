@@ -25,6 +25,10 @@ sudo perl -MCPAN -e shell
 install HTML::Template
 install Path::Class
 `
+
+## Instalacja poczty
+1. sudo apt-get install ssmtp
+2. skopiowac ssmtp.conf do folderu /etc/ssmtp/
 Przy maszynie wirtualnej pamiętać, aby dostęp do internetu był zapewniony przez bridged a nie nat (żeby można się było dostać z przeglądarki).
 _____________________
 skopiowanie skrzynki: komenda scp
