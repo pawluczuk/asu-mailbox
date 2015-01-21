@@ -29,8 +29,8 @@ sub start {
 	}
 	$file_handle = $file->openw();
 	$file_handle->print($buffer);
-	my $session = new CGI::Session();
-	print $session->redirect('/cgi-bin/index.pl');
+	#print "Content-type: text/html\n\n";
+	print $query->redirect(-uri=>"/cgi-bin/inbox.pl");
 }
 
 start();
