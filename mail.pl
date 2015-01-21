@@ -67,7 +67,7 @@ sub start {
 				$readingBody = 1;
 			}
 			
-			if ($readingBody == 1 & $line ne "\n")
+			if ($readingBody == 1 && $line ne "\n")
 			{
 				$mail .= $line;
 			}
